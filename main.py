@@ -3,24 +3,18 @@ import sdl2
 import sdl2.ext
 import random
 from logic import GameOfLife
+from config import WIDTH, HEIGHT, CELL_SIZE, WHITE, BLACK, LIGHT_GREEN
 
 def main():
     try:
         sdl2.ext.init()
 
-        SCREEN_WIDTH = 800
-        SCREEN_HEIGHT = 600
-        CELL_SIZE = 10
-
-        window = sdl2.ext.Window("Evolutionary Simulation", size=(SCREEN_WIDTH, SCREEN_HEIGHT))
+        window = sdl2.ext.Window("Game of Life", size=(WIDTH, HEIGHT))
         window.show()
 
         renderer = sdl2.ext.Renderer(window)
 
-        WHITE = sdl2.ext.Color(255, 255, 255)
-        BLACK = sdl2.ext.Color(0, 0, 0)
-
-        evolutionary_simulation = GameOfLife(SCREEN_WIDTH // CELL_SIZE, SCREEN_HEIGHT // CELL_SIZE)
+        evolutionary_simulation = GameOfLife(WIDTH // CELL_SIZE, HEIGHT // CELL_SIZE)
 
         # Place initial organisms
         for _ in range(50):
@@ -47,9 +41,9 @@ def main():
                 for x in range(evolutionary_simulation.num_cells_x):
                     cell = evolutionary_simulation.grid[y][x]
                     if cell["organism"]:
-                        renderer.fill((x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE), WHITE)
+                        renderer.fill((x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE), LIGHT_GREEN)
                     elif cell["food"] > 0:
-                        renderer.fill((x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE), (0, 255, 0))
+                        renderer.fill((x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE), LIGHT_GREEN)  # Use light green color
                     else:
                         renderer.draw_rect((x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE), WHITE)
 
